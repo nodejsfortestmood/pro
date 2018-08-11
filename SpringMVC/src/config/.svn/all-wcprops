@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/play_project/!svn/ver/180/trunk/SpringMVC/src/config
+END
+springAnnotation-core.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/play_project/!svn/ver/169/trunk/SpringMVC/src/config/springAnnotation-core.xml
+END
+springAnnotation-hibernate.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/play_project/!svn/ver/174/trunk/SpringMVC/src/config/springAnnotation-hibernate.xml
+END
+springAnnotation-servlet.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/play_project/!svn/ver/180/trunk/SpringMVC/src/config/springAnnotation-servlet.xml
+END

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+ xmlns:context="http://www.springframework.org/schema/context"  
+ xmlns:p="http://www.springframework.org/schema/p"  
+ xmlns:mvc="http://www.springframework.org/schema/mvc"  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+ xsi:schemaLocation="http://www.springframework.org/schema/beans  
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+      http://www.springframework.org/schema/context  
+      http://www.springframework.org/schema/context/spring-context.xsd  
+      http://www.springframework.org/schema/mvc  
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+     <!-- 注解扫描包 -->
+	<context:component-scan base-package="com.web.controller" />
+	<!-- 开启注解 -->
+	<mvc:annotation-driven/>
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></bean> -->
+	
+	<!-- HandlerMapping 
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    -->
+    <!-- HandlerAdapter 
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/> 
+    -->
+	<!-- 静态资源访问 -->
+	 <mvc:resources location="/img/" mapping="/img/**"/>  
+	 <mvc:resources location="/js/" mapping="/js/**"/>   
+	 <mvc:resources location="/css/" mapping="/css/**/**"/>   
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- 文件上传配置 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="defaultEncoding" value="utf-8" />
+	      <property name="maxUploadSize" value="10485760000" />
+	      <property name="maxInMemorySize" value="40960" />
+	</bean>
+	<!-- 拦截器自定义 -->
+	<mvc:interceptors>
+	  <mvc:interceptor>
+	    <mvc:mapping path="/user/*"/>
+	    <bean class="com.web.controller.interceptor.SecurityInterceptor"/>
+	  </mvc:interceptor>
+	 <!--  <mvc:interceptor>
+	    <mvc:mapping path="/demo/*"/>
+	    <bean class="com.web.controller.interceptor.CountTimeInterceptor"/>
+	  </mvc:interceptor> -->
+	  
+	  <bean class="com.web.controller.interceptor.CountTimeInterceptor"/>
+	</mvc:interceptors>
+	
+	<bean id="exceptionHandler" class="com.web.controller.MyExceptionHandler"></bean>
+<!-- 系统错误转发配置[并记录错误日志]   -->  
+<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+<property name="defaultErrorView" value="error"></property>   默认为500，系统错误(error.jsp)   
+<property name="defaultStatusCode" value="500"></property>  
+<property name="statusCodes">配置多个statusCode  
+  <props>      
+      <prop key="error">500</prop>  error.jsp  
+      <prop key="error404">404</prop>    error1.jsp  
+  </props>      
+</property>      
+<property name="exceptionMappings">  
+    <props>  
+        这里你可以根据需要定义N多个错误异常转发  
+        <prop key="java.sql.SQLException">dbError</prop> 数据库错误(dbError.jsp)  
+        <prop key="org.springframework.web.bind.ServletRequestBindingException">bizError</prop> 参数绑定错误(如：必须参数没传递)(bizError.jsp)  
+        <prop key="java.lang.IllegalArgumentException">bizError</prop>  参数错误(bizError.jsp)  
+        <prop key="org.springframework.validation.BindException">bizError</prop>  参数类型有误(bizError.jsp)  
+        <prop key="java.lang.Exception">unknowError</prop>  其他错误为'未定义错误'(unknowError.jsp)   
+    </props>  
+</property>  
+</bean>   -->
+	<bean name="/demo2" class="com.web.controller.Demo2ctl">
+		<property name="methodNameResolver">
+			<ref bean="paramMethodResolver"/>
+		</property>
+	</bean>
+	
+	<bean name="/demo1" class="com.web.controller.Democtl" />
+
+    <bean id="paramMethodResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName" value="a"></property>	
+    </bean>
+ </beans>  
