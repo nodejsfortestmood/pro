@@ -6,5 +6,4 @@
 <beans>
 	
 	<import resource="classpath*:com/web/controller/spring/springAnnotation-import.xml"/>
-	<stkdkdkkd
 </beans>
